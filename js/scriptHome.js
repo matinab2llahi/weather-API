@@ -55,7 +55,7 @@ function weatherSerch(){
 }
 
 
-
+localStorage.setItem("weather", "iran")
 
 
 function  errorWeather(el){
