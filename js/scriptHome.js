@@ -95,8 +95,6 @@ function newWeather(el){
 }
 // let nameCity = null
 window.addEventListener("load" , ()=>{
-    // localStorage.clear()
-    
     Weathar = JSON.parse(localStorage.getItem("weather"))
     if(Weathar !== null ){
         console.log("yes")

@@ -5,16 +5,25 @@
     --white:#ffffff;
     --whiteMelo:#aaaaaa;
     --black:#000000;
-    --url-bg:url(../img/rain.jpg);
+    --url-bg:url(../img/welcome.jpg);
     --red:#ae0000;
+
 }
 body{
     margin: 0;
     padding: 0;
-    
+    font-family: 'Archivo Black', sans-serif !important;
 }
-
-
+.hello{
+    text-align: center;
+}
+.hello>h1{
+    margin-bottom: 10px;
+    font-family: 'Pacifico', cursive;
+    box-shadow: none !important;
+    font-size: 50px;
+    color: var(--yellow);
+}
 .loding{
     display: flex;
     justify-content: center;
