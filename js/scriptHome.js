@@ -53,11 +53,6 @@ function weatherSerch(){
         lodedAdd()
     })
 }
-
-
-
-
-
 function  errorWeather(el){
     boxErrorWeather.style.display = "flex"
     Weathar = { msg : el.message + ". plesa city weather enter agin", url : "404"}
@@ -98,41 +93,48 @@ function newWeather(el){
     
     `
 }
-let nameCity = null
+// let nameCity = null
 window.addEventListener("load" , ()=>{
-
-    Weathar = JSON.parse(localStorage.getItem("weather"))
-    if(window.navigator.onLine){
-        fetch(`https://api.openweathermap.org/data/2.5/weather?q=${Weathar.nameCityLong.toLowerCase()}&appid=b41d25256016bba6701105dcd9546f68`)
-        .then(rea=>rea.json())
-        .then(el=>{
-            if(el.cod === 200){
-                boxErrorWeather.style.display = "none"
-                newWeather(el)
-                localStorage.setItem("weather", JSON.stringify(Weathar))
-            }else if(el.cod === "404"){
-                errorWeather(el)
-            }
-        })
-        .catch((err)=>{console.log(err)})
-        .finally(()=>{
-            lodedAdd()
-            inputWeather.value =""
-        })
-    }else{
-        if(Weathar.dateTime >= 4 && Weathar.dateTime <= 17){
-            document.documentElement.style.setProperty("--url-bg", `url(../img/${Weathar.waetharNow}.jpg)`)
-        }else{
-            document.documentElement.style.setProperty("--url-bg", `url(../img/${Weathar.waetharNow}Night.jpg)`)
-        }
+    // localStorage.clear()
     
-        bodyWeather.innerHTML = `
-        <h2  class="text___name_city"       >${Weathar.nameCityLong} - ${Weathar.nameCityShort}</h2>
-        <p   class="text___date_now"        >${Weathar.date}</p>
-        <h1  class="text___temp_now"        >${Weathar.temp}&deg;c</h1>
-        <h2  class="text___condition"       >${Weathar.waetharNow}</h2>
-        <p   class="text___temp_min_and_max">${Weathar.tempMin}&deg;c /  ${Weathar.tempMax}&deg;c</p>
-        `
+    Weathar = JSON.parse(localStorage.getItem("weather"))
+    if(Weathar !== null ){
+        console.log("yes")
+        if(window.navigator.onLine){
+            fetch(`https://api.openweathermap.org/data/2.5/weather?q=${Weathar.nameCityLong.toLowerCase()}&appid=b41d25256016bba6701105dcd9546f68`)
+            .then(rea=>rea.json())
+            .then(el=>{
+                if(el.cod === 200){
+                    boxErrorWeather.style.display = "none"
+                    newWeather(el)
+                    console.log(Weathar)
+                    localStorage.setItem("weather", JSON.stringify(Weathar))
+                }else if(el.cod === "404"){
+                    errorWeather(el)
+                }
+            })
+            .catch((err)=>{console.log(err)})
+            .finally(()=>{
+                lodedAdd()
+                inputWeather.value =""
+            })
+        }else{
+            if(Weathar.dateTime >= 4 && Weathar.dateTime <= 17){
+                document.documentElement.style.setProperty("--url-bg", `url(../img/${Weathar.waetharNow}.jpg)`)
+            }else{
+                document.documentElement.style.setProperty("--url-bg", `url(../img/${Weathar.waetharNow}Night.jpg)`)
+            }
+        
+            bodyWeather.innerHTML = `
+            <h2  class="text___name_city"       >${Weathar.nameCityLong} - ${Weathar.nameCityShort}</h2>
+            <p   class="text___date_now"        >${Weathar.date}</p>
+            <h1  class="text___temp_now"        >${Weathar.temp}&deg;c</h1>
+            <h2  class="text___condition"       >${Weathar.waetharNow}</h2>
+            <p   class="text___temp_min_and_max">${Weathar.tempMin}&deg;c /  ${Weathar.tempMax}&deg;c</p>
+            `
+        }
+    }else{
+        showSection()
         lodedAdd()
     }
 })
